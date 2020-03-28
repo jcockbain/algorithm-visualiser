@@ -7,11 +7,11 @@ const StyledCard = styled(Card)`
   margin: 0.5rem;
   border: 8px solid black;
   border-radius: 4px;
-  background: white;
+  background: ${(props) => (props.selected ? 'green' : 'white')};
 `;
 
-const NumberCard = ({ value }) => (
-  <StyledCard key={value}>
+const NumberCard = ({ value, selected }) => (
+  <StyledCard selected={selected} key={value}>
     {value}
   </StyledCard>
 );

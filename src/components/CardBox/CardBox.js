@@ -12,22 +12,28 @@ const CardList = styled.div`
 `;
 
 const transition = {
-  duration: 1,
+  duration: 0.5,
 };
 
-const CardBox = ({ cards }) => {
+const CardBox = ({ cards, selectedCards }) => {
   const cardArray = cards
-    && cards.map((card) => (
-      <motion.li
-        style={{
-          listStyle: 'none',
-        }}
-        key={card}
-        layoutTransition={transition}
-      >
-        <NumberCard value={card} />
-      </motion.li>
-    ));
+    && cards.map((card, index) => {
+      let selected = false;
+      if (selectedCards) {
+        selected = selectedCards.includes(index);
+      }
+      return (
+        <motion.li
+          style={{
+            listStyle: 'none',
+          }}
+          key={card}
+          layoutTransition={transition}
+        >
+          <NumberCard selected={selected} value={card} />
+        </motion.li>
+      );
+    });
 
   return (
     <div>
