@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { shuffle } from 'lodash';
 
-import { Button } from 'antd';
+import {
+  Button, Row, Col, InputNumber,
+} from 'antd';
+import { StepForwardOutlined, CaretRightOutlined, ReloadOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import NumberCard from '../../elements/numberCard';
 
@@ -18,24 +21,36 @@ const CardList = styled.div`
   justify-content: center;
 `;
 
-const spring = {
-  type: 'spring',
-  damping: 100,
-  stiffness: 500,
+const StyledButton = styled(Button)`
+  /* display: block;
+  margin: auto; */
+`;
+
+const CenteredDiv = styled.div`
+  display: block;
+  margin: auto;
+`;
+
+const transition = {
+  duration: 1,
 };
 
 const initialCards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-const sorter = (a, b) => {
-  if (a < b) return -1;
-  if (a > b) return 1;
-  return 0;
-};
 
-const sortCards = (cards) => {
-  const cardsCopy = [...cards];
-  cardsCopy.sort(sorter);
-  return cardsCopy;
+const bubbleSort = (inputArr) => {
+  const inputCopy = [...inputArr];
+  const len = inputCopy.length;
+  for (let i = 0; i < len; i += 1) {
+    for (let j = 0; j < len; j += 1) {
+      if (inputCopy[j] > inputCopy[j + 1]) {
+        const tmp = inputCopy[j];
+        inputCopy[j] = inputCopy[j + 1];
+        inputCopy[j + 1] = tmp;
+      }
+    }
+  }
+  return inputCopy;
 };
 
 const CardBox = () => {
@@ -48,18 +63,45 @@ const CardBox = () => {
           listStyle: 'none',
         }}
         key={card}
-        layoutTransition={spring}
+        layoutTransition={transition}
       >
         <NumberCard value={card} />
       </motion.li>
     ));
 
+  const updateCardLength = (value) => {
+    const newArray = [];
+    for (let i = 0; i < value; i += 1) {
+      newArray.push(i);
+    }
+    setCards(newArray);
+  };
+
   return (
     <div>
-      <Button onClick={() => setCards(shuffle(cards))}>Shuffle Cards</Button>
-      <Button onClick={() => setCards(sortCards(cards))}>Sort Cards</Button>
+      <Row justify="left" gutter={[16, 8]}>
+        <Col span={4}>
+          <StyledButton icon={<ReloadOutlined />} onClick={() => setCards(shuffle(cards))}>Shuffle</StyledButton>
+        </Col>
+        <Col span={4}>
+          <StyledButton icon={<CaretRightOutlined />} onClick={() => setCards(bubbleSort(cards))}>Run Sort</StyledButton>
+        </Col>
+        <Col span={4}>
+          <StyledButton icon={<StepForwardOutlined />} onClick={() => setCards(bubbleSort(cards))}>Next Sort</StyledButton>
+        </Col>
+      </Row>
+      <Row justify="left" gutter={[16, 16]}>
+        <Col span={4}>
+          <CenteredDiv>
+            <p>Array Length: </p>
+            <InputNumber min={2} max={20} onChange={updateCardLength} defaultValue={cards.length} />
+          </CenteredDiv>
+        </Col>
+      </Row>
       <CardContainer>
-        <CardList>{cardArray}</CardList>
+        <motion.ul>
+          <CardList>{cardArray}</CardList>
+        </motion.ul>
       </CardContainer>
     </div>
   );
