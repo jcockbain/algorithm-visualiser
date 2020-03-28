@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Button, Row, Col, InputNumber,
 } from 'antd';
@@ -41,7 +41,12 @@ const AlgorithmContainer = () => {
     setCards(newArray);
   };
 
-  const bubbleSort = () => {
+  const shuffleCards = () => {
+    setSortIndices([]);
+    setCards(shuffle(cards));
+  };
+
+  const bubbleSort = useCallback(() => {
     if (!cards) {
       return;
     }
@@ -59,10 +64,9 @@ const AlgorithmContainer = () => {
     if (j + 1 === len) {
       i = (i + 1 === len) ? 0 : i + 1;
     }
-
     setSortIndices([i, j]);
     setCards(inputCopy);
-  };
+  }, [cards, sortIndices]);
 
   useEffect(() => {
     if (runSort) {
@@ -71,7 +75,6 @@ const AlgorithmContainer = () => {
   }, [runSort, cards]);
 
   const cardsLength = (cards) ? cards.length : 0;
-
   return (
     <div>
       <Row justify="flex-start" gutter={[16, 8]}>
@@ -79,7 +82,7 @@ const AlgorithmContainer = () => {
           <StyledButton
             disabled={runSort}
             icon={<ReloadOutlined />}
-            onClick={() => setCards(shuffle(cards))}
+            onClick={shuffleCards}
           >
             Shuffle
           </StyledButton>
@@ -115,7 +118,13 @@ const AlgorithmContainer = () => {
         <Col span={4}>
           <CenteredDiv>
             <p>Array Length: </p>
-            <InputNumber disabled={runSort} min={2} max={20} onChange={updateCardLength} defaultValue={cardsLength} />
+            <InputNumber
+              disabled={runSort}
+              min={2}
+              max={20}
+              onChange={updateCardLength}
+              defaultValue={cardsLength}
+            />
           </CenteredDiv>
         </Col>
       </Row>

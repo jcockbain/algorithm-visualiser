@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 import NumberCard from '../../elements/numberCard';
@@ -42,6 +43,15 @@ const CardBox = ({ cards, selectedCards }) => {
       </motion.ul>
     </div>
   );
+};
+
+CardBox.propTypes = {
+  cards: PropTypes.arrayOf(PropTypes.number).isRequired,
+  selectedCards: PropTypes.arrayOf(PropTypes.number),
+};
+
+CardBox.defaultProps = {
+  selectedCards: [],
 };
 
 export default CardBox;
