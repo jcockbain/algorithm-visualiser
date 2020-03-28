@@ -34,12 +34,14 @@ function App() {
           <div>
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
               <Menu.Item key="1">Arrays</Menu.Item>
+              <Menu.Item key="2">Graphs</Menu.Item>
+              <Menu.Item key="4">Trees</Menu.Item>
             </Menu>
           </div>
         </Header>
       </Layout>
       <Layout>
-        <Sider width={200} className="site-layout-background">
+        <Sider className="site-layout-background">
           <Menu
             mode="inline"
             defaultSelectedKeys={['1']}
@@ -50,12 +52,18 @@ function App() {
               <Menu.Item key="1">Bubble Sort</Menu.Item>
               <Menu.Item key="2">Merge Sort</Menu.Item>
               <Menu.Item key="3">Quick Sort </Menu.Item>
+              <Menu.Item key="4">Insertion Sort</Menu.Item>
+            </SubMenu>
+            <SubMenu key="Searching" title={<span>Searching</span>}>
+              <Menu.Item key="5">Binary Search</Menu.Item>
             </SubMenu>
           </Menu>
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Sorting</Breadcrumb.Item>
+            <Breadcrumb.Item>Bubble Sort</Breadcrumb.Item>
           </Breadcrumb>
           <Content
             className="site-layout-background"
@@ -65,7 +73,6 @@ function App() {
               minHeight: 480,
             }}
           >
-            <h2>Bubble Sort</h2>
             <CardBox />
           </Content>
         </Layout>
