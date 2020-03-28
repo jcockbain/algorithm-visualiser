@@ -5,6 +5,8 @@ import React from 'react';
 import Footer from '../../components/footer';
 import NavBar from '../../components/navBar';
 import AlgorithmContainer from '../AlgorithmContainer';
+import Description from '../../components/description';
+import algorithmInfo from '../../data/algorithmDescriptions';
 
 const {
   Sider, Content,
@@ -47,6 +49,7 @@ const Dashboard = () => (
           }}
         >
           <AlgorithmContainer />
+          <Description AlgorithmInfo={algorithmInfo.bubbleSort} />
         </Content>
       </Layout>
     </Layout>
