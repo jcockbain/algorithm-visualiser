@@ -1,5 +1,7 @@
 # Algorithm-Visualiser
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ee17c397-f2c3-481b-8de3-ebecbc311c3d/deploy-status)](https://app.netlify.com/sites/algorithm-visualiser/deploys)
+
 ## Overview
 
 This is an app for visualing algorithms.
