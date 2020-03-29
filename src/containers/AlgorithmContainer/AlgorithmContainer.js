@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
-  Button, Row, Col, InputNumber,
+  Button, Row, Col, InputNumber, message,
 } from 'antd';
 import { shuffle } from 'lodash';
 
@@ -9,7 +9,6 @@ import {
 } from '@ant-design/icons';
 import styled from 'styled-components';
 import CardBox from '../../components/CardBox';
-
 
 const CardContainer = styled.div`
   margin-top: 1rem;
@@ -29,21 +28,31 @@ const initialCards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const AlgorithmContainer = () => {
   const [cards, setCards] = useState(initialCards);
-  const [sortIndices, setSortIndices] = useState([]);
+  const [sortIndex, setSortIndex] = useState(0);
   const [runSort, setRunSort] = useState(false);
+  const [swapped, setSwapped] = useState(false);
+  const [sorted, setSorted] = useState(false);
 
   const updateCardLength = (value) => {
     const newArray = [];
     for (let i = 0; i < value; i += 1) {
       newArray.push(i);
     }
-    setSortIndices([]);
+    setSortIndex(0);
     setCards(newArray);
   };
 
   const shuffleCards = () => {
-    setSortIndices([]);
+    setSortIndex(0);
     setCards(shuffle(cards));
+    setSorted(false);
+  };
+
+  const completeSort = () => {
+    setSorted(true);
+    setRunSort(false);
+    setSortIndex(0);
+    setSwapped(false);
   };
 
   const bubbleSort = useCallback(() => {
@@ -51,26 +60,30 @@ const AlgorithmContainer = () => {
       return;
     }
     const inputCopy = [...cards];
-    let [i, j] = sortIndices.length > 0 ? [...sortIndices] : [0, 0];
+    let j = sortIndex;
     const len = inputCopy.length;
 
     if (inputCopy[j] > inputCopy[j + 1]) {
       const tmp = inputCopy[j];
       inputCopy[j] = inputCopy[j + 1];
       inputCopy[j + 1] = tmp;
+      setSwapped(true);
     }
 
     j = (j + 1 === len) ? 0 : j + 1;
     if (j + 1 === len) {
-      i = (i + 1 === len) ? 0 : i + 1;
+      setSwapped(false);
+      if (!swapped) {
+        completeSort();
+      }
     }
-    setSortIndices([i, j]);
+    setSortIndex(j);
     setCards(inputCopy);
-  }, [cards, sortIndices]);
+  }, [cards, sortIndex]);
 
   useEffect(() => {
     if (runSort) {
-      setTimeout(() => bubbleSort(), 800);
+      setTimeout(() => bubbleSort(), 500);
     }
   }, [runSort, cards]);
 
@@ -129,7 +142,7 @@ const AlgorithmContainer = () => {
         </Col>
       </Row>
       <CardContainer>
-        <CardBox cards={cards} selectedCards={[sortIndices[1], sortIndices[1] + 1]} />
+        <CardBox cards={cards} selectedCards={[sortIndex, sortIndex + 1]} />
       </CardContainer>
     </div>
   );
