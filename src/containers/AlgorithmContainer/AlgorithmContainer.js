@@ -3,11 +3,13 @@ import {
   Button, Row, Col, InputNumber, message,
 } from 'antd';
 import { shuffle } from 'lodash';
-
 import {
   StepForwardOutlined, CaretRightOutlined, ReloadOutlined, PauseOutlined,
 } from '@ant-design/icons';
 import styled from 'styled-components';
+import Description from '../../components/description';
+import algorithmInfo from '../../data/algorithmDescriptions';
+
 import CardBox from '../../components/CardBox';
 
 const CardContainer = styled.div`
@@ -144,6 +146,7 @@ const AlgorithmContainer = () => {
       <CardContainer>
         <CardBox cards={cards} selectedCards={[sortIndex, sortIndex + 1]} />
       </CardContainer>
+      <Description AlgorithmInfo={algorithmInfo.bubbleSort} />
     </div>
   );
 };
