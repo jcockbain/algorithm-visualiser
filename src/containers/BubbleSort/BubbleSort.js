@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
-  Button, Row, Col, InputNumber, message,
+  Button, Row, Col, InputNumber,
 } from 'antd';
 import { shuffle } from 'lodash';
 import {
