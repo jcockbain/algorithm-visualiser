@@ -9,7 +9,7 @@ import {
   Route,
 } from 'react-router-dom';
 import NavBar from './components/navBar';
-import AlgorithmContainer from './containers/BubbleSort';
+import BubbleSort from './containers/BubbleSort';
 import SideBar from './components/sideBar';
 import Footer from './components/footer';
 import ComingSoon from './containers/comingSoon';
@@ -24,16 +24,16 @@ const subRoutes = {
         path: '/arrays/bubble-sort',
       },
       {
+        title: 'Insertion Sort',
+        path: '/arrays/insertion-sort',
+      },
+      {
         title: 'Merge Sort',
         path: '/arrays/merge-sort',
       },
       {
         title: 'Quick Sort',
         path: '/arrays/quick-sort',
-      },
-      {
-        title: 'Insertion Sort',
-        path: '/arrays/insertion-sort',
       },
     ],
     Searching: [
@@ -52,7 +52,12 @@ const routes = [
   {
     title: 'bubble-sort',
     path: '/arrays/bubble-sort',
-    component: AlgorithmContainer,
+    component: BubbleSort,
+  },
+  {
+    title: 'insertion-sort',
+    path: '/arrays/insertion-sort',
+    component: ComingSoon,
   },
   {
     title: 'merge-sort',
@@ -65,11 +70,6 @@ const routes = [
     component: ComingSoon,
   },
   {
-    title: 'insertion-sort',
-    path: '/arrays/insertion-sort',
-    component: ComingSoon,
-  },
-  {
     id: 'binary-search',
     path: '/arrays/binary-search',
     component: ComingSoon,
@@ -77,7 +77,7 @@ const routes = [
   {
     id: 'arrays',
     path: '/arrays',
-    component: AlgorithmContainer,
+    component: ComingSoon,
   },
   {
     id: 'trees',
